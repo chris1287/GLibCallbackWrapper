@@ -15,9 +15,13 @@ int main()
 {
 	Foo x;
 
-	GThread *t0 = GLIB_ASYNC_METHOD0("T0", Foo::m0, x);
-	GThread *t1 = GLIB_ASYNC_METHOD1("T1", Foo::m1, x, "Stuff");
-	GThread *t2 = GLIB_ASYNC_METHOD2("T2", Foo::m2, x, "Stuff", 42);
+	GThread *t0 = G_THREAD_NEW0("T0", Foo::m0, x);
+	GThread *t1 = G_THREAD_NEW1("T1", Foo::m1, x, "Stuff");
+	GThread *t2 = G_THREAD_NEW2("T2", Foo::m2, x, "Stuff", 42);
+
+	g_thread_join(t0);
+	g_thread_join(t1);
+	g_thread_join(t2);
 
 	return 0;
 }
